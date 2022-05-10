@@ -4,7 +4,7 @@ module Api
   module V1
     # Notification class
     class NotificationsController < ApplicationController
-      before_action :set_notification, only: %i[show]
+      before_action :set_notification, only: %i[show update destroy]
 
       def index
         @notifications = Notification.all
@@ -25,9 +25,19 @@ module Api
       end
 
       def update
+        if @notification.update(notification_params)
+          render json: @notification
+        else
+          render json: @notification.errors.full_messages, status: unprocessible_entity
+        end
       end
 
       def destroy
+        if @notification.destroy
+          head :no_content
+        else
+          render @notification.errors.full_messages, status: :unprocessible_entity
+        end
       end
 
       private
