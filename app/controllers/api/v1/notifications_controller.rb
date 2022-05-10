@@ -28,7 +28,7 @@ module Api
         if @notification.update(notification_params)
           render json: @notification
         else
-          render json: @notification.errors.full_messages, status: unprocessible_entity
+          render json: @notification.errors.full_messages, status: unprocessable_entity
         end
       end
 
@@ -36,7 +36,7 @@ module Api
         if @notification.destroy
           head :no_content
         else
-          render @notification.errors.full_messages, status: :unprocessible_entity
+          render @notification.errors.full_messages, status: :unprocessable_entity
         end
       end
 
@@ -48,6 +48,10 @@ module Api
 
       def notification_params
         params.require(:notification).permit(:title, :start_date, :end_date, :system, :active)
+      end
+
+      def record_not_found_handler
+        render json: "The notification with id: #{params[:id]} not found", status: :unprocessable_entity
       end
     end
   end
