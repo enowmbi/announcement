@@ -16,6 +16,12 @@ module Api
       end
 
       def create
+        notification = Notification.new(notification_params)
+        if notification.save
+          render json: notification
+        else
+          render json: notification.errors.full_messages, status: 422
+        end
       end
 
       def update
