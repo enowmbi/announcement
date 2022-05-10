@@ -18,6 +18,8 @@ module Api
       def create
         notification = Notification.new(notification_params)
         if notification.save
+          NotificationService.new.call
+
           render json: notification
         else
           render json: notification.errors.full_messages, status: 422
