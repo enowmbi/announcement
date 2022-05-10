@@ -1,20 +1,22 @@
 module Api
-module V1
-class AnnouncementsController < ApplicationController
-  def index
-  end
+  module V1
+    class AnnouncementsController < ApplicationController
+      def index
+        @notifications = Notification.all
+        render json: @notifications
+      end
 
-  def show
-  end
+      def show
+      end
 
-  def create
-  end
+      def create
+      end
 
-  def update
-  end
+      def update
+      end
 
-  def destroy
+      def destroy
+      end
+    end
   end
-end
-end
 end
