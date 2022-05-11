@@ -42,6 +42,11 @@ module Api
         end
       end
 
+      def search
+        search_results = NotificationQuery.new(params).call
+        render json: search_results
+      end
+
       private
 
       def set_notification
